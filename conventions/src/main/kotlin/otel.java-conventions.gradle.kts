@@ -9,6 +9,7 @@ plugins {
   codenarc
   idea
 
+  id("biz.aQute.bnd.builder")
   id("otel.errorprone-conventions")
   id("otel.spotless-conventions")
   id("org.owasp.dependencycheck")
@@ -267,7 +268,9 @@ tasks {
         "Implementation-Version" to project.version,
         "Implementation-Vendor" to "OpenTelemetry",
         "Implementation-URL" to "https://github.com/open-telemetry/opentelemetry-java-instrumentation",
-        "Automatic-Module-Name" to javaModuleName
+        "Automatic-Module-Name" to javaModuleName,
+        // BND instructions to generate OSGi metadata
+        "-exportcontents" to "!${javaModuleName}.**.internal,${javaModuleName}.*",
       )
     }
   }
